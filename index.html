@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A2Academy Mini Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-inner">
+      <div>
+        <h1>A2Academy Mini Manager</h1>
+        <p class="subtitle">Správa účastníkov</p>
+      </div>
+      <button type="button" id="resetBtn" class="btn btn-ghost">Obnoviť testovacie údaje</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats" aria-label="Prehľad">
+      <div class="stat-card">
+        <span class="stat-label">Všetci</span>
+        <span class="stat-value" id="statTotal">0</span>
+      </div>
+      <div class="stat-card stat-accepted">
+        <span class="stat-label">Prijatí</span>
+        <span class="stat-value" id="statAccepted">0</span>
+      </div>
+      <div class="stat-card stat-pending">
+        <span class="stat-label">Čakajúci</span>
+        <span class="stat-value" id="statPending">0</span>
+      </div>
+      <div class="stat-card stat-rejected">
+        <span class="stat-label">Zamietnutí</span>
+        <span class="stat-value" id="statRejected">0</span>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="formTitle">
+      <h2 id="formTitle">Pridať účastníka</h2>
+      <form id="participantForm" novalidate>
+        <div class="form-grid">
+          <label class="field">
+            <span>Meno a priezvisko *</span>
+            <input type="text" id="fName" maxlength="100" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>E-mail *</span>
+            <input type="email" id="fEmail" maxlength="150" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>Mesto *</span>
+            <input type="text" id="fCity" maxlength="80" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>Skupina *</span>
+            <select id="fGroup">
+              <option value="">— vyberte —</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Stav *</span>
+            <select id="fStatus"></select>
+          </label>
+        </div>
+        <p id="formError" class="form-error" role="alert" hidden></p>
+        <div class="form-actions">
+          <button type="submit" id="submitBtn" class="btn btn-primary">Pridať účastníka</button>
+          <button type="button" id="cancelEditBtn" class="btn btn-ghost" hidden>Zrušiť úpravu</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="listTitle">
+      <div class="list-header">
+        <h2 id="listTitle">Zoznam účastníkov</h2>
+        <button type="button" id="exportBtn" class="btn btn-secondary">Exportovať do CSV</button>
+      </div>
+
+      <div class="filters">
+        <label class="field">
+          <span>Hľadať</span>
+          <input type="search" id="searchInput" placeholder="Meno alebo e-mail">
+        </label>
+        <label class="field">
+          <span>Skupina</span>
+          <select id="groupFilter">
+            <option value="">Všetky skupiny</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Stav</span>
+          <select id="statusFilter">
+            <option value="">Všetky stavy</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="result-count" id="resultCount"></p>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Meno</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">Mesto</th>
+              <th scope="col">Skupina</th>
+              <th scope="col">Stav</th>
+              <th scope="col"><span class="sr-only">Akcie</span></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <p id="emptyState" class="empty-state" hidden>Žiadni účastníci nezodpovedajú zadaným kritériám.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
